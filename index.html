@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+    <style>
+        html{
+        background-color:#b8c0c8;
+
+    }
+    #label{
+        font-size: 25px;
+    }
+    #button{
+        background-color:#3e3d53;
+	   color: honeydew;
+	   
+	   cursor: pointer;
+	   font-size: 20px;
+	
+	  
+	   padding: 10px 14px;
+	   margin: 4px 0;
+	   border: none;
+	   border-radius: 1px;
+    }
+    </style>
+</head>
+<body>
+    <h3>Enter the f(x) for y = f(x)</h3>
+<form id = "inputfeild">
+        <label id = "label" >Enter the equation:</label>
+        <input type = "text" id = "text" value = "sin(x) "/>
+        <input type = "button" value = "Plot" id = "button" /><br><br><br>
+</form>
+<div id="chartContainer" style="height: 500px; width: 100%;background-color: tomato;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://unpkg.com/mathjs@7.1.0/dist/math.min.js"></script>
+</body>
+<script>
+    var xvalues= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    var yvalues= [0, 0.8414709848078965, 0.9092974268256817, 0.1411200080598672, -0.7568024953079282, -0.9589242746631385, -0.27941549819892586, 0.6569865987187891, 0.9893582466233818, 0.4121184852417566]
+    var trace1 = {
+        x: xvalues,
+        y: yvalues,
+        
+      }
+    console.log("outside",trace1)
+    document.getElementById("button").onclick = function () { 
+   try{
+       console.log("clicked")
+       const data = document.getElementById("text").value
+               const expression = math.compile(data)
+                xvalues = math.range(0,10,1).toArray()
+               
+                yvalues = xvalues.map(function(x){
+                   return expression.evaluate({x:x})
+               })
+               
+                trace1 = {
+        x: xvalues,
+        y: yvalues,
+        
+      }
+      console.log("inside",trace1)
+      var chart = new CanvasJS.Chart("chartContainer", {
+       
+       animationEnabled: true,
+       theme: "light2",
+       title:{
+           text: "Graph"
+       },
+       data: [{        
+           type: "line",
+             indexLabelFontSize: 16,
+              
+           dataPoints: [
+               { y: trace1.y[0] },
+               { y: trace1.y[1]},
+               { y: trace1.y[2]  },
+               { y: trace1.y[3] },
+               { y: trace1.y[4] },
+               { y: trace1.y[5] },
+               { y: trace1.y[6] },
+               { y: trace1.y[7] },
+               { y: trace1.y[8]  },
+               { y: trace1.y[9] },
+               
+           ]
+       }]
+   });
+   chart.render();
+      
+   
+               
+}
+   catch(err){
+       alert(err)
+   }
+   
+   }
+   
+   var chart = new CanvasJS.Chart("chartContainer", {
+       
+       animationEnabled: true,
+       theme: "light2",
+       title:{
+           text: "Graph"
+       },
+       data: [{        
+           type: "line",
+             indexLabelFontSize: 16,
+              
+           dataPoints: [
+               { y: trace1.y[0] },
+               { y: trace1.y[1]},
+               { y: trace1.y[2]  },
+               { y: trace1.y[3] },
+               { y: trace1.y[4] },
+               { y: trace1.y[5] },
+               { y: trace1.y[6] },
+               { y: trace1.y[7] },
+               { y: trace1.y[8]  },
+               { y: trace1.y[9] },
+               
+           ]
+       }]
+   });
+   chart.render();
+   </script>
+</html>
